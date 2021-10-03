@@ -1,6 +1,6 @@
 <template>
     <div class="mt-5">
-        <div v-if="$page.props.flash.message" clas="alert alert-success" role="alert">
+        <div v-if="$page.props.flash.message" class="alert alert-success" role="alert">
             {{ $page.props.flash.message }}
         </div>
 
@@ -22,7 +22,10 @@
                         <tr v-for="post in posts" :key="post.id">
                             <td>{{ post.title }}</td>
                             <td>{{ post.content }}</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <inertia-link :href="`/posts/${post.id}/edit`" class="btn btn-sm btn-primary me-3">EDIT</inertia-link>
+                                <button @click.prevent="deletePost(`${post.id}`)" class="btn btn-sm btn-danger">DELETE</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -33,10 +36,21 @@
 
 <script>
 import LayoutApp from '../../Layouts/App.vue';
+import { Inertia } from '@inertiajs/inertia'
+
 export default {
     layout: LayoutApp,
     props: {
         posts: Array, // nama props yang dibuat di controller saat parsing data
+    },
+    setup() {
+        function deletePost(id) {
+            Inertia.delete(`/posts/${id}`);
+        }
+
+        return {
+            deletePost
+        }
     }
 }
 </script>

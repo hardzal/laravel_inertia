@@ -9,7 +9,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                <inertia-link class="nav-link" :href="/posts/">POSTS</inertia-link>
+                <inertia-link class="nav-link" :href='"/posts"'>POSTS</inertia-link>
                 </li>
             </ul>
             <form class="d-flex">
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { InertiaLink } from '@inertiajs/inertia-vue3';
+
 export default {
 
 }

@@ -39,4 +39,37 @@ class PostController extends Controller
             return Redirect::route('posts.index')->with('message', 'Data berhasil disimpan!');
         }
     }
+
+    public function edit(Post $post)
+    {
+        return Inertia::render('Post/Edit', [
+            'post' => $post
+        ]);
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content
+        ]);
+
+        if ($post) {
+            return Redirect::route('posts.index')->with('message', 'Data berhasil diperbaharui!');
+        }
+    }
+
+    public function destroy(Post $post)
+    {
+        if ($post->delete()) {
+            return Redirect::route('posts.index')->with('message', 'Data berhasil dihapus!');
+        }
+
+        return Redirect::route('posts.index')->with("message', 'Data gagal dihapus!");
+    }
 }
